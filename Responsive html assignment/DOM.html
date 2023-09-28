@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validations</title>
+    <!-- <script src="https://cdn.tailwindcss.com"></script> -->
+   
+
+</head>
+<body>
+    <div class="card">
+      
+        <form action=""  id="form"  name="myform">
+            <h1>Register Form</h1>
+            <div class="in-grp">
+                <label for="username">Uername</label>
+                <input type="text" name="username" id="username" placeholder="username">
+                <p class="error"></p>
+            </div>
+            <div class="in-grp">
+                <label for="email">Email</label>
+                <input type="text" name="email" id="email" placeholder="email">
+                <p class="error"></p>
+            </div>
+            <div class="in-grp">
+                <label for="num">Phone</label>
+                <input type="text" name="num" id="num" placeholder="phone number">
+                <p class="error"></p>
+            </div>
+            <div class="in-grp">
+                <label for="password">password</label>
+                <input type="text" name="password" id="password" placeholder="password"> <i class="fa-solid fa-check"></i>
+                <p class="error"></p>
+            </div>
+            <div class="in-grp">
+                <label for="conformpassword">confirm password</label>
+                <input type="password" name="confirmpassword" id="confirmpassword" placeholder="confirm password">
+                <p class="error"></p>
+            </div>
+            <button type="submit" id="reg" disabled >Register</button>
+            <button type="reset" id="reset" onclick="clme()" style="background-color: rgb(172, 62, 62);">Reset</button>
+        </form>
+            
+    </div>
+    <script>        
+
+
+
+//STYLE body
+document.body.style.backgroundColor="RGB(13, 89, 202)";
+document.body.style.margin=0;
+
+
+//style form div
+document.getElementById('form').style.backgroundColor="white"
+document.getElementById('form').style.width="400px";
+document.getElementById('form').style.padding="30px";
+document.getElementById('form').style.margin="20vh auto 0px auto";
+document.getElementById('form').style.borderRadius="5px";
+
+
+//header align
+var head=document.querySelector('h1');
+head.setAttribute("style","text-align: center; color: black; font-weight: bold; font-size: 34px; margin-bottom: 20px;")
+
+
+//form button
+var btn=document.querySelector('#reg');
+btn.setAttribute("style","    margin: 20px 0px; width: 100%; padding: 10px; border-radius: 5px; ")
+
+//rest button
+var btn1=document.querySelector('#reset');
+btn1.setAttribute("style","background-color: rgb(213, 29, 20); border:none; cursor:pointer; color: white;  padding: 10px; border-radius: 5px; margin: 20px 0px; width: 100%; ")
+
+
+
+//ALL input Div
+// Select all div elements with the class name "in-grp" it return array
+const inGrpDivs = document.querySelectorAll('.in-grp'); 
+
+// Loop through each div and set the style attributes
+inGrpDivs.forEach(div => {
+    div.setAttribute('style', 'display: flex; flex-direction: column; margin-bottom: 2px;');
+
+});
+
+
+
+//Inputbox
+const inputfi = document.querySelectorAll('.in-grp input'); 
+
+// Loop through each div and set the style attributes
+inputfi.forEach(div1 => {
+    div1.setAttribute('style', 'padding: 10px; border: 1px solid rgb(153, 147, 147); border-radius: 5px;');
+
+});
+
+
+//error class 
+const error = document.querySelectorAll('.error'); 
+
+// Loop through each div and set the style attributes
+error.forEach(div2 => {
+    div2.setAttribute('style', 'color: red; margin-top: 5px;font-size: 16px;');
+
+});
+
+
+//success message 
+const success = document.querySelectorAll('.in-grp .succ input '); 
+// Loop through each div and set the style attributes
+success.forEach(div3 => {
+    div3.setAttribute('style', 'border-color:green');
+
+});
+
+//error message 
+const fixerr = document.querySelectorAll('.error'); 
+console.log(success);
+// Loop through each div and set the style attributes
+success.forEach(div3 => {
+    div3.setAttribute('style', 'border-color:red');
+
+});
+
+
+
+///to clear reset button
+function clme(){
+
+        const inputGroups = document.querySelectorAll('.in-grp ');
+        inputGroups.forEach((ingrp) => {
+        const errorElement = ingrp.querySelector('.error');
+        ingrp.classList.remove('error', 'succ');
+        
+        errorElement.innerText = ' ';
+        
+    })}
+
+
+
+        
+        const form = document.querySelector('#form')
+        const username = document.querySelector('#username')
+        const email = document.querySelector('#email')
+        const num=document.querySelector('#num');
+        const password = document.querySelector('#password')
+        const confirmpassword = document.querySelector('#confirmpassword')
+        const reg=document.getElementById('reg')
+
+       
+
+        
+
+      
+        //form submit button
+        form.addEventListener('submit',(e)=>{
+            e.preventDefault();
+           
+            if (validate()) {
+                window.open('Resposive.html', '_blank');            }
+
+           
+        });
+
+        function enableRegisterButton() {
+
+        const userval=username.value.trim();
+        const emailval=email.value.trim();
+        const numval=num.value.trim();
+        const passval=password.value.trim();
+        const cpassval=confirmpassword.value.trim();
+
+        const reg=document.getElementById('reg')
+
+        if (userval !== "" &&  emailval !=="" &&  numval !=='' && passval !=='' && cpassval !=='' ) {
+            reg.removeAttribute("disabled");
+            reg.setAttribute('style','background-color:RGB(13, 89, 202); cursor:pointer; margin: 20px 0px; width: 100%;  font-weight: bold;  padding: 10px; border-radius: 5px; ');
+        } else {
+        reg.setAttribute("disabled", "true");
+}
+}
+
+
+        function validate(){
+            const userval=username.value.trim();
+            const emailval=email.value.trim();
+            const numval=num.value.trim();
+            const passval=password.value.trim();
+            const cpassval=confirmpassword.value.trim();
+
+            let isValid = true;
+
+         
+
+
+            //username
+            if(userval===''){
+                seterror(username,'username is requred')
+                isValid = false;
+
+            }
+           else if(userval.length <=5){
+                    seterror(username,'username must be 5 character')
+                    isValid = false;
+
+                }
+            else{
+                setsucc(username)
+                
+            }
+            
+
+            //email
+            if(emailval===''){
+                seterror(email,'email is required')
+                isValid = false;
+
+            }
+            
+            else if(!crtmail(emailval)){
+                seterror(email,'not a valid Email')
+                isValid = false;
+
+            }
+           
+            else{
+                setsucc(email)
+            }
+
+            
+            //phone number
+            if(numval===''){
+                seterror(num,'phone number is required')
+                isValid = false;
+
+            }
+                    
+            else if(isNaN(numval)){
+                seterror(num,'not a number')
+                isValid = false;
+
+            }
+            else if(numval.length <10){
+                seterror(num,'phone number must be 10 digit')
+                isValid = false;
+
+            }
+            else{
+                setsucc(num)
+            }
+
+
+            //password
+            if(passval===''){
+                seterror(password,'password is requred')
+                isValid = false;
+
+            }
+            else if(passval.length<8){
+                seterror(password,'password must be 8 character long')
+                isValid = false;
+
+            }
+
+            else{
+                setsucc(password)
+            }
+
+
+
+            //confrim password
+            if(cpassval===''){
+                seterror(confirmpassword,'confirmpassword is requred')
+                isValid = false;
+
+            }
+            else if(passval!==cpassval){
+                seterror(confirmpassword,'confirmpassword password does not match')
+
+                isValid = false;
+
+            }
+
+            else{
+                setsucc(confirmpassword)
+
+            }
+       
+            return isValid ;
+           
+        }
+
+
+     
+        function seterror(element,message){
+            const ingrp=element.parentElement;
+            const errorel=ingrp.querySelector('.error');
+            errorel.innerText= message;
+
+            ingrp.classList.add('error')
+            ingrp.classList.remove('succ')
+
+        }
+
+
+
+        function setsucc(element){
+            const ingrp=element.parentElement;
+            const errorel=ingrp.querySelector('.error');
+
+            errorel.innerText= ' ';
+
+            ingrp.classList.add('succ')
+            ingrp.classList.remove('error')
+
+
+        }
+
+        function crtmail(email){
+            return  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email);
+        }
+
+
+        form.addEventListener("input", enableRegisterButton);
+
+    </script>
+</body>
+</html>
